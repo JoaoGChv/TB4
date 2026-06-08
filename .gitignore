@@ -1,0 +1,36 @@
+# ROS 2 — artefatos de build
+build/
+install/
+log/
+
+# Rosbags gravadas
+*.db3
+*.mcap
+metadata.yaml
+experimento_tb4_*/
+
+# Mapas gerados
+maps/
+
+# Modelos de IA (grandes demais para git)
+*.onnx
+*.trt
+*.engine
+*.pt
+*.pth
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+
+# Editores
+.vscode/
+.idea/
+*.swp
+*~
+
+# OS
+.DS_Store
+Thumbs.db

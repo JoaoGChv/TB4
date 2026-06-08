@@ -1,0 +1,40 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(chmod +x /home/ubuntu/tmp_JG/tb4_ws/activate_camera.sh)",
+      "Bash(python3 -c \"import ast; ast.parse\\(open\\('/home/ubuntu/tmp_JG/tb4_ws/src/tb4_depth_estimator/tb4_depth_estimator/depth_node.py'\\).read\\(\\)\\); print\\('syntax OK'\\)\")",
+      "Bash(pkill -f \"list_parameters\")",
+      "Bash(cat /etc/turtlebot4/fastdds_rpi.xml 2>&1)",
+      "Read(//etc/turtlebot4/**)",
+      "Bash(cat /proc/1189/cmdline 2>/dev/null | tr '\\\\0' ' '; echo \"\" *)",
+      "Read(//proc/1189/**)",
+      "Read(//proc/1189/fd/**)",
+      "Bash(find /opt/ros/humble/share/turtlebot4_bringup -name \"*.launch.py\" -o -name \"*.yaml\" 2>/dev/null | sort | head -20)",
+      "Read(//opt/ros/humble/share/turtlebot4_bringup/**)",
+      "Bash(systemctl --user list-units --plain)",
+      "Bash(kill %1)",
+      "Bash(ps -eo pid,ppid,user,comm,args)",
+      "Bash(systemctl --user status)",
+      "Read(//etc/systemd/user/**)",
+      "Read(//home/ubuntu/.config/systemd/**)",
+      "Bash(cat /tmp/turtlebot4.launch.py 2>&1 | head -100)",
+      "Read(//tmp/**)",
+      "Bash(cat /tmp/tmp5dr4mlll 2>&1 | head -60 *)",
+      "Bash(cat /usr/sbin/turtlebot4-start 2>&1)",
+      "Read(//usr/sbin/**)",
+      "Read(//etc/ros/humble/turtlebot4.d/**)",
+      "Read(//etc/ros/humble/**)",
+      "Bash(awk '{print $1, $2, $8, $11, $12}')",
+      "Bash(chmod +x /home/ubuntu/tmp_JG/tb4_ws/launch_oakd.sh /home/ubuntu/tmp_JG/tb4_ws/activate_camera.sh)",
+      "Bash(systemctl list-units *)",
+      "Read(//usr/lib/systemd/system/**)",
+      "Read(//etc/systemd/system/**)",
+      "Bash(./check_system.sh)",
+      "Bash(cat /opt/ros/humble/share/turtlebot4_navigation/launch/slam.launch.py)",
+      "Read(//opt/ros/humble/share/turtlebot4_navigation/launch/**)",
+      "Bash(cat /opt/ros/humble/share/turtlebot4_navigation/config/slam.yaml)",
+      "Read(//opt/ros/humble/share/turtlebot4_navigation/config/**)",
+      "Read(//opt/ros/humble/share/irobot_create_msgs/action/**)"
+    ]
+  }
+}
