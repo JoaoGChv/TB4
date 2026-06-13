@@ -1,4 +1,4 @@
-# tb4_ws — Workspace de Estimação de Profundidade Monocular
+# ROS2-Monocular-depth-TurtleBot4 — Workspace de Estimação de Profundidade Monocular
 
 Workspace ROS 2 para estimação de profundidade monocular em tempo real no **TurtleBot4 Standard**, usando a câmera **Realsense D415** e os modelos **Depth Anything (ViT-S) & Monodepth2**. O nó de inferência roda na **Jetson Orin Nano** (TensorRT).
 
