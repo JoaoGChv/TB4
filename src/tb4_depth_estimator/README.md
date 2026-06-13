@@ -2,7 +2,7 @@
 
 Nó ROS 2 de estimação de profundidade monocular para **TurtleBot4 Standard + Jetson Orin Nano**.
 
-Subscreve a imagem RGB da OAK-D e publica um mapa de profundidade estimado por deep learning.
+Subscreve a imagem RGB da Intel-Realsense D415 e publica um mapa de profundidade estimado pelo módulo nativo da câmera.
 
 ---
 
