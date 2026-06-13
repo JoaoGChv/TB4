@@ -1,8 +1,6 @@
 # tb4_ws — Workspace de Estimação de Profundidade Monocular
 
-Workspace ROS 2 para estimação de profundidade monocular em tempo real no **TurtleBot4 Standard**, usando a câmera **OAK-D Pro** e o modelo **Depth Anything (ViT-S)**.
-
-O nó de inferência roda na **Jetson Orin Nano** (TensorRT) em produção, ou no PC de desenvolvimento (ONNX/CPU). Um modo `dummy` sem modelo permite validar o pipeline ROS antes do hardware de IA estar disponível.
+Workspace ROS 2 para estimação de profundidade monocular em tempo real no **TurtleBot4 Standard**, usando a câmera **Realsense D415** e os modelos **Depth Anything (ViT-S) & Monodepth2**. O nó de inferência roda na **Jetson Orin Nano** (TensorRT).
 
 ---
 
@@ -11,9 +9,8 @@ O nó de inferência roda na **Jetson Orin Nano** (TensorRT) em produção, ou n
 | Componente | Detalhes |
 |---|---|
 | Robô | TurtleBot4 Standard (namespace `/robot4`) |
-| Câmera | OAK-D Pro (driver depthai_ros) |
+| Câmera | Intel Realsense D415 (driver depthai_ros) |
 | Compute IA | Jetson Orin Nano (produção) |
-| PC | Desenvolvimento e operação remota |
 
 ---
 
@@ -23,18 +20,6 @@ O nó de inferência roda na **Jetson Orin Nano** (TensorRT) em produção, ou n
 - **colcon** para build (`python3-colcon-common-extensions`)
 - PC e TB4 na mesma rede Wi-Fi com `ROS_DOMAIN_ID=0`
 - `tmux` instalado (usado pelo script de sessão de mapeamento)
-
-Para o backend ONNX (desenvolvimento sem Jetson):
-```bash
-pip install onnxruntime
-```
-
-Para o backend TensorRT (produção na Jetson):
-```
-Repositório IRCVLab/Depth-Anything-for-Jetson-Orin clonado em /ros2_ws/Depth-Anything-for-Jetson-Orin
-```
-
----
 
 ## Estrutura do Repositório
 
@@ -102,8 +87,8 @@ Antes de qualquer experimento, confirme que câmera, LiDAR e odometria estão pu
 Saída esperada:
 ```
 ✓ ROS 2 ativo — N nós rodando
-✓ Container oakd está rodando
-✓ /robot4/oakd/rgb/preview/image_raw
+✓ Container Realsense está rodando
+✓ /robot4/realsense/rgb/preview/image_raw
 ✓ /robot4/scan
 ✓ /robot4/odom
 ✓ Câmera: 30.0 Hz
@@ -120,9 +105,9 @@ Saída esperada:
 
 ---
 
-### 3. Ativar a câmera OAK-D
+### 3. Ativar a câmera Realsense-D415
 
-O driver OAK-D do sistema vem com `i_publish_topic: false` por padrão. Este script ativa a publicação sem reiniciar o driver:
+O driver librealsense da câmera D415 vem com `i_publish_topic: false` por padrão. Este script ativa a publicação sem reiniciar o driver:
 
 ```bash
 ./activate_camera.sh
@@ -246,11 +231,6 @@ DEPTH_BACKEND=onnx     ros2 launch tb4_depth_estimator onnx.launch.py
 DEPTH_BACKEND=tensorrt ros2 launch tb4_depth_estimator tensorrt.launch.py
 ```
 
-Para o backend ONNX, copie o modelo exportado para:
-```
-src/tb4_depth_estimator/tb4_depth_estimator/depth_anything_vits14.onnx
-```
-
 ---
 
 ## Tópicos ROS
@@ -290,16 +270,3 @@ source install/setup.bash
 
 DEPTH_BACKEND=tensorrt ros2 launch tb4_depth_estimator tensorrt.launch.py
 ```
-
----
-
-## Solução de Problemas
-
-| Sintoma | Causa provável | Solução |
-|---|---|---|
-| `ros2 topic list` vazio | `ROS_DOMAIN_ID` errado | Garantir `ROS_DOMAIN_ID=0` no PC |
-| Câmera não publica | Robô dockado | `./undock.sh` |
-| Câmera não publica | `i_publish_topic: false` | `./activate_camera.sh` ou `./launch_oakd.sh &` |
-| Subscriber não recebe nada | QoS incompatível | Câmera usa BEST_EFFORT — subscriber deve usar o mesmo |
-| Latência alta no ONNX | CPU sem aceleração | Esperado 1–5 FPS em CPU; use Jetson para produção |
-| Sessão tmux já existe | Script rodado duas vezes | `tmux kill-session -t tb4_mapping` e rodar novamente |
